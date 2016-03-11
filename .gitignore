@@ -1,0 +1,5 @@
+Thumbs.db
+/deploy
+/.logs
+/node_modules
+/nbproject
