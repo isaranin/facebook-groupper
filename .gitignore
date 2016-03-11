@@ -3,3 +3,4 @@ Thumbs.db
 /.logs
 /node_modules
 /nbproject
+/src/web/configs/*.private.php
