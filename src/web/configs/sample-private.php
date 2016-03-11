@@ -28,7 +28,7 @@ $res = (object)[
 		'id' => 'app-id',
 		'secret' => 'app-secret',
 		'version' => 'v2.5',
-		'access-toke' => 'user-access-token'
+		'accessToken' => 'user-access-token'
 	]
 ];
 
