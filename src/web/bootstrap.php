@@ -22,8 +22,8 @@
  * Preboot module
  */
 
-include __DIR__.'/configs/main.php';
-include __DIR__.'/libs/autoload.php';
+require_once __DIR__.'/configs/main.php';
+require_once __DIR__.'/libs/autoload.php';
 
 error_reporting(E_ALL);
 

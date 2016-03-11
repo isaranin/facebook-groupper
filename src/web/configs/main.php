@@ -27,5 +27,7 @@ $_CONFIG = (object) [
 	'main' => (object)[
 		'timezone' => 'UTC',
 		'dev' => true
-	]
+	],
+	'private' => include('my.private.php')
 ];
+

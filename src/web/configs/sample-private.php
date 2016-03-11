@@ -27,7 +27,8 @@ $res = (object)[
 	'facebook' => (object) [
 		'id' => 'app-id',
 		'secret' => 'app-secret',
-		'version' => 'v2.5'
+		'version' => 'v2.5',
+		'access-toke' => 'user-access-token'
 	]
 ];
 
