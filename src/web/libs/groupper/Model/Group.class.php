@@ -19,12 +19,19 @@
 
 namespace Groupper\Model;
 
-/*
+/**
  * Module for Group class
  * 
- * <DESCRIPTION>
  */
 
+/**
+ * Groups tables in db
+ * 
+ * @property string url asd
+ * @property string code asd
+ * @property string fbid
+ * @property syncfeed boolean
+ */
 class Group extends \MysqliDb\dbObject {
     protected $dbTable = "groups";
 	protected $primaryKey = "id";
@@ -33,10 +40,5 @@ class Group extends \MysqliDb\dbObject {
         'code' => Array ('text'),
         'fbid' => Array ('text'),
         'syncfeed' => Array ('bool')
-    );
-
-    protected $timestamps = Array ('createdAt', 'updatedAt');
-    protected $relations = Array (
-        'products' => Array ("hasMany", "product", 'userid')
     );
 }
