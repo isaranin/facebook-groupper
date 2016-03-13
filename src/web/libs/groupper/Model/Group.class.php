@@ -33,12 +33,17 @@ namespace Groupper\Model;
  * @property syncfeed boolean
  */
 class Group extends \MysqliDb\dbObject {
-    protected $dbTable = "groups";
-	protected $primaryKey = "id";
-    protected $dbFields = Array (
-        'url' => Array ('text', 'required'),
-        'code' => Array ('text'),
-        'fbid' => Array ('text'),
-        'syncfeed' => Array ('bool')
-    );
+    protected $dbTable = 'groups';
+	protected $primaryKey = 'id';
+    protected $dbFields = [
+        'url' => ['text', 'required'],
+        'code' => ['text'],
+        'fbid' => ['text'],
+        'syncfeed' => ['bool'],
+		'lastsync' => ['datetime'],
+		'created' => ['datetime'],
+        'updated' => ['datetime']
+    ];
+	
+	protected $timestamps = ['created', 'updated'];
 }
