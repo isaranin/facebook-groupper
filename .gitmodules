@@ -1,6 +1,0 @@
-[submodule "src/libs/facebook-php-sdk"]
-	path = src/libs/facebook-php-sdk
-	url = git@github.com:facebook/facebook-php-sdk-v4.git
-[submodule "src/libs/php-mysqli-database"]
-	path = src/libs/php-mysqli-database
-	url = git@github.com:isaranin/PHP-MySQLi-Database-Class.git
