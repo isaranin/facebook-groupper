@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `sa_fb_groupper`
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `collections` (
   `name` text NOT NULL,
   `description` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='collection of groups' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='collection of groups' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `fb_access_tokens` (
   `time` datetime NOT NULL,
   `token` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `feed` (
   `created` datetime NOT NULL,
   `attachments` mediumtext,
   PRIMARY KEY (`groupid`,`postid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `groups` (
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='facebook groups' AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COMMENT='facebook groups' AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `groups_to_collections` (
   `group_id` int(11) NOT NULL,
   `collection_id` int(11) NOT NULL,
   PRIMARY KEY (`group_id`,`collection_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='relation groups to collection';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='relation groups to collection';
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
