@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 18, 2016 at 07:54 PM
+-- Generation Time: Mar 18, 2016 at 08:42 PM
 -- Server version: 5.6.14
 -- PHP Version: 5.5.9
 
@@ -58,7 +58,7 @@ DROP TABLE IF EXISTS `feed`;
 CREATE TABLE IF NOT EXISTS `feed` (
   `groupid` bigint(20) NOT NULL,
   `postid` bigint(20) NOT NULL,
-  `authorid` bigint(11) NOT NULL,
+  `authorid` bigint(20) NOT NULL,
   `message` mediumtext NOT NULL,
   `type` int(11) NOT NULL,
   `link` int(11) NOT NULL,
@@ -78,13 +78,19 @@ CREATE TABLE IF NOT EXISTS `feed` (
 
 DROP TABLE IF EXISTS `groups`;
 CREATE TABLE IF NOT EXISTS `groups` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `url` tinytext COMMENT 'group url',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `url` text COMMENT 'group url',
   `code` tinytext COMMENT 'code (part of url)',
-  `fbid` tinytext COMMENT 'id in facebook',
+  `name` text,
+  `description` mediumtext,
+  `icon` text,
+  `cover` text,
+  `privacy` tinytext,
+  `email` text,
+  `ownerid` bigint(20) NOT NULL,
   `syncfeed` tinyint(1) NOT NULL,
   `lastsync` datetime DEFAULT NULL,
-  `created` datetime DEFAULT NULL,
+  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='facebook groups' AUTO_INCREMENT=1 ;

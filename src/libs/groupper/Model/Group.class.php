@@ -37,7 +37,12 @@ class Group extends \MysqliDb\dbObject {
     protected $dbFields = [
         'url' => ['text', 'required'],
         'code' => ['text'],
-        'fbid' => ['text'],
+        'name' => ['text'],
+		'description' => ['text'],
+		'cover' => ['text'],
+		'privacy' => ['text'],
+		'email' => ['text'],
+		'ownerid' => ['text'],
         'syncfeed' => ['bool'],
 		'lastsync' => ['datetime'],
 		'created' => ['datetime'],
