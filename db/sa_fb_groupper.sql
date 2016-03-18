@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 16, 2016 at 12:01 AM
+-- Generation Time: Mar 18, 2016 at 07:54 PM
 -- Server version: 5.6.14
 -- PHP Version: 5.5.9
 
@@ -26,12 +26,13 @@ SET time_zone = "+00:00";
 -- Table structure for table `collections`
 --
 
+DROP TABLE IF EXISTS `collections`;
 CREATE TABLE IF NOT EXISTS `collections` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` text NOT NULL,
   `description` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='collection of groups' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='collection of groups' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -39,6 +40,7 @@ CREATE TABLE IF NOT EXISTS `collections` (
 -- Table structure for table `fb_access_tokens`
 --
 
+DROP TABLE IF EXISTS `fb_access_tokens`;
 CREATE TABLE IF NOT EXISTS `fb_access_tokens` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `time` datetime NOT NULL,
@@ -52,6 +54,7 @@ CREATE TABLE IF NOT EXISTS `fb_access_tokens` (
 -- Table structure for table `feed`
 --
 
+DROP TABLE IF EXISTS `feed`;
 CREATE TABLE IF NOT EXISTS `feed` (
   `groupid` bigint(20) NOT NULL,
   `postid` bigint(20) NOT NULL,
@@ -59,6 +62,8 @@ CREATE TABLE IF NOT EXISTS `feed` (
   `message` mediumtext NOT NULL,
   `type` int(11) NOT NULL,
   `link` int(11) NOT NULL,
+  `published` tinyint(1) DEFAULT NULL,
+  `visible` tinyint(1) DEFAULT NULL,
   `updated` datetime NOT NULL,
   `created` datetime NOT NULL,
   `attachments` mediumtext,
@@ -71,6 +76,7 @@ CREATE TABLE IF NOT EXISTS `feed` (
 -- Table structure for table `groups`
 --
 
+DROP TABLE IF EXISTS `groups`;
 CREATE TABLE IF NOT EXISTS `groups` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `url` tinytext COMMENT 'group url',
@@ -78,10 +84,10 @@ CREATE TABLE IF NOT EXISTS `groups` (
   `fbid` tinytext COMMENT 'id in facebook',
   `syncfeed` tinyint(1) NOT NULL,
   `lastsync` datetime DEFAULT NULL,
-  `created` datetime NOT NULL,
-  `updated` datetime NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `updated` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='facebook groups' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='facebook groups' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -89,6 +95,7 @@ CREATE TABLE IF NOT EXISTS `groups` (
 -- Table structure for table `groups_to_collections`
 --
 
+DROP TABLE IF EXISTS `groups_to_collections`;
 CREATE TABLE IF NOT EXISTS `groups_to_collections` (
   `group_id` int(11) NOT NULL,
   `collection_id` int(11) NOT NULL,

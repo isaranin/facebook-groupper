@@ -35,6 +35,8 @@ class FeedItem extends \MysqliDb\dbObjectMultiKey {
 		'message' => ['text', 'required'],
 		'type' => ['int', 'required'],
 		'link' => ['int', 'required'],
+		'published' => ['bool', 'required'],
+		'visible' => ['bool', 'required'],
 		'updated' => ['datetime', 'required'],
 		'created' => ['datetime', 'required'],
 		'attachments' => ['text', 'required'],
