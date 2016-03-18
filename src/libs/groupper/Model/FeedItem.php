@@ -39,7 +39,7 @@ class FeedItem extends \MysqliDb\dbObjectMultiKey {
 		'visible' => ['bool', 'required'],
 		'updated' => ['datetime', 'required'],
 		'created' => ['datetime', 'required'],
-		'attachments' => ['text', 'required'],
+		'attachments' => ['text'],
 	];
 	
 	protected $arrayFields = ['attachments'];
