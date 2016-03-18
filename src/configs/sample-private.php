@@ -38,7 +38,7 @@ $res = (object)[
 		'base' => 'some-db-name',
 		'user' => 'some-user-name',
 		'password' => 'some-password',
-		'charset' => 'utf8'
+		'charset' => 'utf8mb4'
 	]
 ];
 
