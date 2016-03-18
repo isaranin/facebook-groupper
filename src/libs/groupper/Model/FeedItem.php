@@ -33,8 +33,8 @@ class FeedItem extends \MysqliDb\dbObjectMultiKey {
 	protected $dbFields = [
 		'authorid' => ['text', 'required'],
 		'message' => ['text', 'required'],
-		'type' => ['int', 'required'],
-		'link' => ['int', 'required'],
+		'type' => ['text', 'required'],
+		'link' => ['text'],
 		'published' => ['bool', 'required'],
 		'visible' => ['bool', 'required'],
 		'updated' => ['datetime', 'required'],

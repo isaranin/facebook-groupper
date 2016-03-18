@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 18, 2016 at 09:35 PM
+-- Generation Time: Mar 18, 2016 at 10:35 PM
 -- Server version: 5.6.14
 -- PHP Version: 5.5.9
 
@@ -60,8 +60,8 @@ CREATE TABLE IF NOT EXISTS `feed` (
   `postid` bigint(20) NOT NULL,
   `authorid` bigint(20) NOT NULL,
   `message` mediumtext NOT NULL,
-  `type` int(11) NOT NULL,
-  `link` int(11) NOT NULL,
+  `type` tinytext NOT NULL,
+  `link` text,
   `published` tinyint(1) DEFAULT NULL,
   `visible` tinyint(1) DEFAULT NULL,
   `updated` datetime NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `groups` (
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='facebook groups' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='facebook groups' AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
