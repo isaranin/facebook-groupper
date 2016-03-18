@@ -62,6 +62,18 @@ class Connector {
 	protected $accessToken = null;
 	
 	/**
+	 * Mysql datetime format
+	 * @var string
+	 */
+	static public $MYSQL_DATETIME_FORMAT = 'Y-m-d H:i:s'; //2016-03-15 24:00:00
+	
+	/**
+	 * Facebook datetime format
+	 * @var string
+	 */
+	static public $FB_DATETIME_FORMAT = 'Y-m-d?H:i:sT'; //2016-03-15T24:00:00+0000
+	
+	/**
 	 * Constructor
 	 * 
 	 * @param string $appId application id
@@ -145,5 +157,20 @@ class Connector {
 		}
 		
 		return $res;
+	}
+	
+	/**
+	 * Method convert facebook date time to needed format
+	 * @param string $time datetime string in facebook format
+	 * @param string $outFormat needed format, if empty we will use Mysql format
+	 * @return string
+	 */
+	public function convertFBDateTime($time, $outFormat = '') {
+		if (empty($outFormat)) {
+			$outFormat = self::$MYSQL_DATETIME_FORMAT;
+		}
+		$res = \DateTime::createFromFormat(self::$FB_DATETIME_FORMAT, $time);
+		
+		return $res->format($outFormat);
 	}
 }
