@@ -35,18 +35,79 @@ $db = new MysqliDb\MysqliDb(
 	$_CONFIG->private->db->charset
 );
 
-// initialize facebook object
-$fb = new Groupper\FB\Connector(
+// initialize facebook group object
+$fbGroup = new Groupper\FB\Group(
 	$_CONFIG->private->facebook->id,
 	$_CONFIG->private->facebook->secret,
 	$_CONFIG->private->facebook->version
 );
 
+// find last facebook token
+$lastDBToken = \Groupper\Model\AccessToken::ArrayBuilder()->orderBy('time')->getOne();
 
+if (!is_null($lastDBToken)) {
+	$lastToken = $lastToken->token;
+} else {
+	$lastToken = $_CONFIG->private->facebook->accessToken;
+}
 
+// connecting to fb
+$newToken = $fbGroup->connect($lastToken);
 
-$fb->connect($_CONFIG->private->facebook->accessToken);
+// save new token
+if (is_string($newToken)) {
+	$newDBToken = new \Groupper\Model\AccessToken();
+	$newDBToken->token = $newToken;
+	$newDBToken->time = date(Groupper\FB\Connector::$MYSQL_DATETIME_FORMAT);
+	$newDBToken->save();
+}
 
-$r = $fb->request('GET', '/me');
-var_dump($r);
-var_dump($r->getDecodedBody());
+// take groups
+$groups = \Groupper\Model\Group::ObjectBuilder()->get();
+if (empty($groups)) {
+	return 0;
+}
+
+// update groups if they have only url
+foreach($groups as $group) {
+	if (empty($group->code) && !empty($group->url)) {
+		$newGroupData = $fbGroup->getGroupFromUrl($group->url);
+		if (is_array($newGroupData)) {
+			$group->save($newGroupData);
+		}
+	}
+}
+
+// take last feeds from groups
+foreach($groups as $group) {
+	if (!empty($group->id) && $group->syncfeed) {
+		
+		// take 25 last posts, facebook sort it by post update, not created date
+		$feed = $fbGroup->feed($group->id, null, 25);
+		if (!is_array($feed)) {
+			// log error
+			continue;
+		}
+		
+		// save each feed post
+		foreach($feed as $feedItem) {
+			$dbFeedItem = \Groupper\Model\FeedItem::byId([
+				'groupid' => $feedItem['groupid'],
+				'postid' => $feedItem['postid']
+				]
+			);
+			if (is_null($dbFeedItem)) {
+				$dbFeedItem = new \Groupper\Model\FeedItem($feedItem);
+				$res = $dbFeedItem->save();
+			} else {
+				$res = $dbFeedItem->update($feedItem);
+			}
+			
+			// log error			
+		}
+		
+		// save last sync time to group
+		$group->lastsync = date(Groupper\FB\Connector::$MYSQL_DATETIME_FORMAT);
+		$group->save();
+	}
+}
