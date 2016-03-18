@@ -21,6 +21,19 @@ $db = new MysqliDb\MysqliDb(
 //$a = $feeds->byId(['postid'=>1, 'groupid'=>1]);
 //var_dump($a);
 
-$collection = \Groupper\Model\Collection::join('\Groupper\Model\Group', 'group_id');
-var_dump($collection->get());
-var_dump($collection);
+//$collection = \Groupper\Model\Collection::join('\Groupper\Model\Group', 'group_id');
+//var_dump($collection->get());
+//var_dump($collection);
+
+//$group = new \Groupper\Model\Group();
+//$group->url = 'https://www.facebook.com/groups/Phuketbuysellrent/';
+//$group->syncfeed = true;
+//$a = $group->save();
+//var_dump($a);
+//print_r($group->errors);
+
+$group = \Groupper\Model\Group::byId(2);
+//$a = $group->ArrayBuilder()->orderBy("id", "desc")->get();
+$group->syncfeed = false;
+$group->save();
+var_dump($group);
