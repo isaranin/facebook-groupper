@@ -41,6 +41,10 @@ class Group extends Connector {
 	 */
 	protected function getAttachments($attachments) {
 		$res = [];
+		if (!isset($attachments['attachments'])) {
+			return $res;
+		}
+		$attachments = $attachments['attachments'];
 		if (isset($attachments['data'])) {
 			foreach($attachments['data'] as $attachment) {
 				if ($attachment['type'] === 'album' && isset($attachment['subattachments']['data'])) {
@@ -65,18 +69,22 @@ class Group extends Connector {
 		$res = [];
 		foreach($data as $post) {
 			$id = explode('_', $post['id']);
+			// if no message then this is wrong post, we dot need it
+			if (!isset($post['message'])) {
+				continue;
+			}
 			$post = [
 				'groupid' => $id[0],
 				'postid' => $id[1],
 				'authorid' => $post['from']['id'],
 				'message' => $post['message'],
 				'type' => $post['type'],
-				'link' => $post['link'],
+				'link' => isset($post['link'])?$post['link']:'',
 				'published' => $post['is_published'],
 				'visible' => !$post['is_hidden'],
 				'created' => $this->convertFBDateTime($post['created_time']),
 				'updated' => $this->convertFBDateTime($post['updated_time']),
-				'attachments' => $this->getAttachments($post['attachments'])
+				'attachments' => $this->getAttachments($post)
 			];
 			$res[] = $post;
 		}
