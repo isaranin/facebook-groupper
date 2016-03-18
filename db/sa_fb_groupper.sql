@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 18, 2016 at 08:42 PM
+-- Generation Time: Mar 18, 2016 at 09:35 PM
 -- Server version: 5.6.14
 -- PHP Version: 5.5.9
 
@@ -87,8 +87,8 @@ CREATE TABLE IF NOT EXISTS `groups` (
   `cover` text,
   `privacy` tinytext,
   `email` text,
-  `ownerid` bigint(20) NOT NULL,
-  `syncfeed` tinyint(1) NOT NULL,
+  `ownerid` bigint(20) DEFAULT NULL,
+  `syncfeed` tinyint(1) NOT NULL DEFAULT '0',
   `lastsync` datetime DEFAULT NULL,
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` datetime DEFAULT NULL,
