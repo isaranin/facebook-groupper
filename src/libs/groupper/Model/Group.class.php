@@ -27,10 +27,6 @@ namespace Groupper\Model;
 /**
  * Groups tables in db
  * 
- * @property string url asd
- * @property string code asd
- * @property string fbid
- * @property syncfeed boolean
  */
 class Group extends \MysqliDb\dbObject {
 	
@@ -48,5 +44,7 @@ class Group extends \MysqliDb\dbObject {
         'updated' => ['datetime']
     ];
 	
-	protected $timestamps = ['created', 'updated'];
+	protected $updateField = 'updated';
+	protected $createField = 'created';
+	
 }
