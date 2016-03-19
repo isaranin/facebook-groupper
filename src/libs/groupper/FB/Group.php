@@ -195,7 +195,7 @@ class Group extends Connector {
 		$res = $this->request('GET', $command, $params);
 		if (is_array($res)) {
 			$res = $this->normalizeFbGroupAnswer($res);
-		}
+		} 
 		return $res;
 	}
 	
@@ -215,6 +215,9 @@ class Group extends Connector {
 		$res = $this->request('GET', '/search', $params);
 		if (isset($res['data'][0])) {
 			$res = $this->getGroupFromID($res['data'][0]['id']);
+		} else {
+			$this->lastError = sprintf('No group found with code - %s', $code);
+			$res = false;
 		}
 		return $res;
 	}
