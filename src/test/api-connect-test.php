@@ -6,14 +6,10 @@
 
 include '../bootstrap.php';
 
-$fb = new Groupper\FB\Connector(
+$fb = new Groupper\FB\Login(
 	$_CONFIG->private->facebook->id,
 	$_CONFIG->private->facebook->secret,
-	$_CONFIG->private->facebook->version
+	$_CONFIG->private->facebook->version,
+	$_CONFIG->private->facebook->permissions
 );
-
-$fb->connect($_CONFIG->private->facebook->accessToken);
-
-$r = $fb->request('GET', '/me');
-var_dump($r);
-var_dump($r->getDecodedBody());
+var_dump($fb->getLoginUrl('asd'));
