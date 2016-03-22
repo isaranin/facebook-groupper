@@ -30,7 +30,8 @@ $res = (object)[
 		'secret' => 'app-secret',
 		'version' => 'v2.5',
 		//can take it here https://developers.facebook.com/tools/accesstoken/
-		'accessToken' => 'user-access-token'
+		'accessToken' => 'user-access-token',
+		'permissions' => ['user_managed_groups', 'publish_actions']
 	],
 	//database config
 	'db' => (object) [
