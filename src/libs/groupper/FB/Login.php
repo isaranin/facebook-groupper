@@ -153,6 +153,7 @@ class Login {
 		$helper = $this->fb->getRedirectLoginHelper();
 		try {
 			$res = $helper->getAccessToken();
+			$res = $res->getValue();
 		} catch(Facebook\Exceptions\FacebookResponseException $e) {
 			$this->lastError = sprintf('Graph returned an error: %s', $e->getMessage());
 		} catch(Facebook\Exceptions\FacebookSDKException $e) {
