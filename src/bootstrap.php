@@ -32,3 +32,6 @@ date_default_timezone_set($_CONFIG->main->timezone);
 
 // set error
 ini_set('display_errors', ($_CONFIG->main->dev?'1':'0'));
+
+// start session
+session_start();
