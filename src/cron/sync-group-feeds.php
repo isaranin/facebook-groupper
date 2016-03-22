@@ -37,7 +37,7 @@ $fbGroup = new Groupper\FB\Group(
 $lastDBToken = \Groupper\Model\AccessToken::ArrayBuilder()->orderBy('time')->getOne();
 
 if (!is_null($lastDBToken)) {
-	$lastToken = $lastToken->token;
+	$lastToken = $lastDBToken->token;
 } else {
 	$lastToken = $_CONFIG->private->facebook->accessToken;
 }
