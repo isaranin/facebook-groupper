@@ -34,7 +34,7 @@ $fbGroup = new Groupper\FB\Group(
 );
 
 // find last facebook token
-$lastDBToken = \Groupper\Model\AccessToken::ArrayBuilder()->orderBy('time')->getOne();
+$lastDBToken = \Groupper\Model\AccessToken::ObjectBuilder()->orderBy('time')->getOne();
 
 if (!is_null($lastDBToken)) {
 	$lastToken = $lastDBToken->token;
