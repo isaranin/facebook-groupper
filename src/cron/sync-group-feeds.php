@@ -24,16 +24,7 @@
  */
 
 include '../bootstrap.php';
-
-// initialize database object
-$db = new MysqliDb\MysqliDb(
-	$_CONFIG->private->db->host,
-	$_CONFIG->private->db->user,
-	$_CONFIG->private->db->password,
-	$_CONFIG->private->db->base,
-	null,
-	$_CONFIG->private->db->charset
-);
+include '../db.php';
 
 // initialize facebook group object
 $fbGroup = new Groupper\FB\Group(
