@@ -1,0 +1,25 @@
+/* 
+  facebook-groupper
+  https://github.com/isaranin/facebook-groupper
+   
+  Worker with facebook groups
+   
+  repository		git@github.com:isaranin/facebook-groupper.git
+   
+  author		Ivan Saranin
+  company		Saranin Co.
+  url			http://saranin.co
+  copyright		(c) 2016, Saranin Co.
+   
+   
+  created by Ivan Saranin <ivan@saranin.com>, on 22.03.2016, at 19:37:43
+*/
+/* 
+  Style login-success
+*/
+.login-success {
+  margin-top: 40px;
+  padding: 30px 35px;
+  text-align: center;
+  width: 400px;
+}
