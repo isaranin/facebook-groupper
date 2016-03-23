@@ -30,13 +30,30 @@ abstract class AbstractFbCommand extends AbstractCommand {
 	 * 
 	 * @var \MysqliDb\MysqliDb 
 	 */
-	public $db;
+	public $db = null;
 	
 	/**
 	 * Facebook connector class
 	 * @var \Groupper\FB\Connector 
 	 */
-	public $fb;
+	public $fb = null;
+	
+	/**
+	 * Check if facebook is connected and db is not null
+	 * @param type $params
+	 */
+	protected function innerExecute($params) {
+		if (is_null($this->db)) {
+			return 'You should execute init method first, MysqlDB can`t be null.';
+		}
+		if (is_null($this->fb)) {
+			return 'You should execute init method first, Facebook can`t be null.';
+		}
+		if (!$this->fb->connected) {
+			return 'Connect facebook first, execute FB\Connector->connect() method.';
+		}
+		return true;
+	}
 	
 	/**
 	 * Init Facebook command
