@@ -50,6 +50,12 @@ class Connector {
 	public $lastError = '';
 	
 	/**
+	 * If we connected to facbook api or nor
+	 * @var boolean;
+	 */
+	public $connected = false;
+	
+	/**
 	 * Facebook object
 	 * @var \Facebook\Facebook
 	 */
@@ -124,6 +130,7 @@ class Connector {
 			}
 			
 			$this->accessToken = $newAccessToken;
+			$this->connected = true;
 			
 		} catch (\Exception $ex) {
 			$res = false;
