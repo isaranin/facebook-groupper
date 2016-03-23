@@ -26,11 +26,16 @@ abstract class AbstractCommand {
 	
 	/**
 	 * Extended class should add here command text, as it used outside
-	 * Should be always in lower case
-	 * 
+	 * Should be always in lower case	 * 
 	 * @var string
 	 */
 	protected $command = '';
+	
+	/**
+	 * Last error text
+	 * @var string
+	 */
+	public $lastError = '';
 	
 	/**
 	 * Method for init object
