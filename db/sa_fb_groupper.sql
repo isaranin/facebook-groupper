@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 23, 2016 at 07:34 PM
+-- Generation Time: Mar 23, 2016 at 11:43 PM
 -- Server version: 5.6.14
 -- PHP Version: 5.5.9
 
@@ -127,6 +127,23 @@ CREATE TABLE IF NOT EXISTS `groups_to_collections` (
   `collection_id` int(11) NOT NULL,
   PRIMARY KEY (`group_id`,`collection_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='relation groups to collection';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `posts`
+--
+
+DROP TABLE IF EXISTS `posts`;
+CREATE TABLE IF NOT EXISTS `posts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `message` mediumtext,
+  `type` text NOT NULL,
+  `data` mediumtext,
+  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
