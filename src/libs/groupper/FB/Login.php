@@ -183,7 +183,7 @@ class Login {
 				foreach($permissions['data'] as $permission) {
 					if ($permission['status'] === 'granted') {
 						$index = array_search($permission['permission'], $needPermissions);
-						if ($index > 0) {
+						if ($index >= 0) {
 							unset($needPermissions[$index]);
 						}
 					}
