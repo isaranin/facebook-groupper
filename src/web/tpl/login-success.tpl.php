@@ -20,7 +20,6 @@
 /* 
  * Template login-success
  */
-var_dump($tpl);
 ?>
 <html>
 	<head>
@@ -33,14 +32,17 @@ var_dump($tpl);
 	</head>
 	<body>
 		<div class="success-panel panel panel-default center-block">
-			<? if (isset($tpl['fbUrl'])) { ?>
-				<h2 class="title">Login Facebook</h2>
-				<a class="btn btn-lg btn-primary btn-block" href="<?= $tpl['fbUrl']?>">Click me!</a>
+			<? if ($tpl['connected']) { ?>
+				<h2 class="title">You are logged as</h2>
+				<a class="btn btn-lg btn-primary btn-block" href="https://www.facebook.com/<?= $tpl['user']['id']?>" target="_blank">
+					<?= $tpl['user']['name'] ?>
+				</a>
+			<? } else {?>
+				<h2>Something wrong:</h2>
+				<div class="alert alert-warning" role="alert">
+					<?= $tpl['error'] ?>
+				</div>
 			<? } ?>
-			<h3>Current status:</h3>
-			<div class="alert alert-warning" role="alert">
-				<?= $tpl['error'] ?>
-			</div>
 			
 		</div>
 	</body>

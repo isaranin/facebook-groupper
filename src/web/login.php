@@ -67,9 +67,10 @@ if (!$login->checkPermissions($lastToken)) {
 	$connector->connect($lastToken);
 	// take information about user
 	$me = $connector->request('GET','/me');
-	if (isset($me['data'])) {
+	if (isset($me['name'])) {
 		$layoutData['connected'] = true;
-		$layoutData['user'] = $me['data'];
+		$layoutData['user']['name'] = $me['name'];
+		$layoutData['user']['id'] = $me['id'];
 
 		$tplName = 'login-success';
 	} else {
