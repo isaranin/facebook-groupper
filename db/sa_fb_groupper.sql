@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 18, 2016 at 10:35 PM
+-- Generation Time: Mar 23, 2016 at 07:34 PM
 -- Server version: 5.6.14
 -- PHP Version: 5.5.9
 
@@ -33,6 +33,26 @@ CREATE TABLE IF NOT EXISTS `collections` (
   `description` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='collection of groups' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cron`
+--
+
+DROP TABLE IF EXISTS `cron`;
+CREATE TABLE IF NOT EXISTS `cron` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `command` text NOT NULL,
+  `params` text,
+  `interval` int(11) NOT NULL COMMENT 'execute command every interval minutes',
+  `start` datetime NOT NULL COMMENT 'time to start',
+  `lastexec` datetime DEFAULT NULL,
+  `enabled` tinyint(1) NOT NULL,
+  `created` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='scheduler for tasks' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -93,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `groups` (
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COMMENT='facebook groups' AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COMMENT='facebook groups' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
