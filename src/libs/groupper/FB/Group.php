@@ -216,8 +216,10 @@ class Group extends Connector {
 		if (isset($res['data'][0])) {
 			$res = $this->getGroupFromID($res['data'][0]['id']);
 		} else {
-			$this->lastError = sprintf('No group found with code - %s', $code);
-			$res = false;
+			$res = $this->getGroupFromID($code);
+			if ($res === false) {
+				$this->lastError = sprintf('No group found with code - %s', $code);
+			}
 		}
 		return $res;
 	}
@@ -236,5 +238,92 @@ class Group extends Connector {
 		}
 		
 		return $this->getGroupFromCode($groupCode);
+	}
+	
+	/**
+	 * Add message post to facebook group
+	 * 
+	 * @param string $groupID group ID
+	 * @param string $message text message
+	 * @return array|false false if error, or [id => ..., post_id => ...] if ok
+	 */
+	public function addPost($groupID, $message) {
+		$res = false;
+		$params = [
+			'message' => $message
+		];
+		$command = sprintf('/%s/feed', $groupID);
+		$res = $this->request('POST', $command, $params);
+		
+		return $res;
+	}
+	
+	/**
+	 * Share link to group
+	 * 
+	 * @param string $groupID group id
+	 * @param string $message message for link (on the top post)
+	 * @param string $link url for link
+	 * @param string $caption title text under image
+	 * @param string $description text under title
+	 * @param string $picture link to the picture
+	 * @param string $name 
+	 * @return array|false false if error, or [id => ..., post_id => ...] if ok
+	 */
+	public function addLink($groupID, $message, $link, $caption = '', $description = '', $picture = '', $name = '') {
+		$res = false;
+		$params = [
+			'message' => $message
+		];
+		if (!empty($link)) {
+			$params['link'] = $link;
+		}
+		if (!empty($caption)) {
+			$params['caption'] = $caption;
+		}
+		if (!empty($picture)) {
+			$params['picture'] = $picture;
+		}
+		if (!empty($description)) {
+			$params['description'] = $description;
+		}
+		if (!empty($name)) {
+			$params['name'] = $name;
+		}
+		$command = sprintf('/%s/feed', $groupID);
+		$res = $this->request('POST', $command, $params);
+		
+		return $res;
+	}
+	
+	/**
+	 * Add photo to group file or url
+	 * 
+	 * @param string $groupID group id
+	 * @param string $message message for photo
+	 * @param string $filename file path to image
+	 * @param string $url url path for picture
+	 * @return array|false false if error, or [id => ..., post_id => ...] if ok
+	 */
+	public function addPhoto($groupID, $message = '', $filename = '', $url = '') {
+		$res = false;
+		$params = [
+			'message' => $message,
+			'description' => 'testdescription'
+		];
+		if (!empty($url)) {
+			$params['url'] = $url;
+		}
+		if (!empty($filename)) {
+			if (!file_exists($filename)) {
+				$this->lastError = sprintf('File not exists - %s', $filename);
+				return false;
+			}
+			$params['source'] = $this->fb->fileToUpload($filename);
+		}
+		$command = sprintf('/%s/photos', $groupID);
+		$res = $this->request('POST', $command, $params);
+		
+		return $res;
 	}
 }
