@@ -26,6 +26,18 @@
 include '../bootstrap.php';
 include '../db.php';
 
+if (php_sapi_name() !== 'cli') {
+	$loggedin = isset($_SESSION['login']) && ($_SESSION['login'] === true);
+
+	if (!$loggedin) {
+		echo 'unauthorized';
+		exit(0);
+	}
+}
+
+set_time_limit(0);
+
+
 // initialize facebook group object
 $fbGroup = new Groupper\FB\Group(
 	$_CONFIG->private->facebook->id,
