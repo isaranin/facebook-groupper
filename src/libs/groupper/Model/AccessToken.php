@@ -33,4 +33,6 @@ class AccessToken extends \MysqliDb\dbObject {
 		'time' => ['datetime', 'required'],
 		'token' => ['text', 'required']
 	];
+	
+	protected $updateField = 'time';
 }

@@ -61,7 +61,6 @@ $newToken = $fbGroup->connect($lastToken);
 if (is_string($newToken)) {
 	$newDBToken = new \Groupper\Model\AccessToken();
 	$newDBToken->token = $newToken;
-	$newDBToken->time = date(Groupper\FB\Connector::$MYSQL_DATETIME_FORMAT);
 	$newDBToken->save();
 }
 
