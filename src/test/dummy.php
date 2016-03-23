@@ -25,7 +25,7 @@ include '../bootstrap.php';
 
 $manager = new \Groupper\Commands\Manager();
 
-$a = $manager->getCommandByName('test');
+$a = $manager->getCommandByName('createpost');
 
-var_dump($a);
-var_dump($manager->lastError);
+var_dump($a->execute([]));
+var_dump($a->lastError);

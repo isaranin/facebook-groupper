@@ -38,12 +38,42 @@ abstract class AbstractCommand {
 	public $lastError = '';
 	
 	/**
+	 * Method for checking input parametres
+	 * If error happens, should return string with error text
+	 */
+	abstract protected function checkParams($params);
+	
+	/**
+	 * This method should be overwritten
+	 * Command execution process should be here
+	 * If error happens, should return string with error text
+	 */
+	abstract protected function innerExecute($params);
+	
+	/**
 	 * Method for init object
 	 */
 	abstract public function init();
 	
 	/**
 	 * Method for execute command
+	 * 
+	 * @param array $params
+	 * @return boolean 
 	 */
-	abstract public function execute($params);
+	public function execute($params) {
+		$check = $this->checkParams($params);
+		if (is_string($check)) {
+			$this->lastError = sprintf('Wrong parametres: %s', $check);
+			return false;
+		}
+		
+		$res = $this->innerExecute($params);
+		if (is_string($res)) {
+			$this->lastError = sprintf('Error execution: %s', $res);
+			return false;
+		}
+		
+		return true;
+	}
 }

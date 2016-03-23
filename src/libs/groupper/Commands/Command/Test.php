@@ -27,7 +27,11 @@ class Test extends AbstractFbCommand {
 	
 	protected $command = 'test';
 	
-	public function execute($params) {
-		return 'test';
+	protected function checkParams($params) {
+		return true;
+	}
+	
+	protected function innerExecute($params) {
+		return true;
 	}
 }
