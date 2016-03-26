@@ -32,7 +32,7 @@ class Post extends \MysqliDb\dbObject {
     protected $dbFields = [
         'message' => ['text'],
 		'type' => ['text', 'required'],
-		'data' => ['text'],
+		'params' => ['text'],
 		'created' => ['datetime'],
         'updated' => ['datetime']
     ];
@@ -40,5 +40,5 @@ class Post extends \MysqliDb\dbObject {
 	protected $updateField = 'updated';
 	protected $createField = 'created';
 	
-	protected $jsonFields = ['data'];
+	protected $jsonFields = ['params'];
 }

@@ -139,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `message` mediumtext,
   `type` text NOT NULL,
-  `data` mediumtext,
+  `params` mediumtext,
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
