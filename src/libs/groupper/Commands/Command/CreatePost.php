@@ -39,6 +39,7 @@ class CreatePost extends AbstractFbCommand{
 	 */
 	protected function checkParams($params) {
 		$res = '';
+		$params = (array)$params;
 		if (!isset($params['post_id'])) {
 			$res .= (!empty($res)?', ':'').'"post_id" should exist';
 		}
@@ -174,6 +175,7 @@ class CreatePost extends AbstractFbCommand{
 	 * Send post to group
 	 */
 	protected function innerExecute($params) {
+		$params = (array) $params;
 		$res = parent::innerExecute($params);
 		if (is_string($res)) {
 			return $res;

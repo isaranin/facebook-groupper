@@ -62,6 +62,7 @@ abstract class AbstractCommand {
 	 * @return boolean 
 	 */
 	public function execute($params) {
+		$params = (array)$params;
 		$check = $this->checkParams($params);
 		if (is_string($check)) {
 			$this->lastError = sprintf('Wrong parametres: %s', $check);
