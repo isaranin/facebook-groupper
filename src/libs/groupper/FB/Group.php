@@ -308,13 +308,14 @@ class Group extends Connector {
 	public function addPhoto($groupID, $message = '', $filename = '', $url = '') {
 		$res = false;
 		$params = [
-			'message' => $message,
-			'description' => 'testdescription'
+			'message' => $message
 		];
 		if (!empty($url)) {
 			$params['url'] = $url;
 		}
 		if (!empty($filename)) {
+			// filename is relative our src folder
+			$filename = dirname(dirname(dirname(__DIR__))).$filename;
 			if (!file_exists($filename)) {
 				$this->lastError = sprintf('File not exists - %s', $filename);
 				return false;
