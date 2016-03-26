@@ -164,7 +164,7 @@ class Group extends Connector {
 			'url' => sprintf(self::$GROUP_LINK, $groupCode),
 			'code' => $groupCode,
 			'name' => $data['name'],
-			'description' => $data['description'],
+			'description' => isset($data['description'])?$data['description']:'',
 			'icon' => $data['icon'],
 			'cover' => '',
 			'privacy' => $data['privacy'],
