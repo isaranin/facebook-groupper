@@ -27,12 +27,7 @@ include '../bootstrap.php';
 include '../db.php';
 
 if (php_sapi_name() !== 'cli') {
-	$loggedin = isset($_SESSION['login']) && ($_SESSION['login'] === true);
-
-	if (!$loggedin) {
-		echo 'unauthorized';
-		exit(0);
-	}
+	exit(0);
 }
 
 set_time_limit(0);
