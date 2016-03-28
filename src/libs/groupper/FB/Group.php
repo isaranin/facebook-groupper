@@ -164,7 +164,7 @@ class Group extends Connector {
 			'url' => sprintf(self::$GROUP_LINK, $groupCode),
 			'code' => $groupCode,
 			'name' => $data['name'],
-			'description' => isset($data['description'])?$data['description']:'',
+			'description' => $data['description'],
 			'icon' => $data['icon'],
 			'cover' => '',
 			'privacy' => $data['privacy'],
@@ -320,7 +320,12 @@ class Group extends Connector {
 				$this->lastError = sprintf('File not exists - %s', $filename);
 				return false;
 			}
-			$params['source'] = $this->fb->fileToUpload($filename);
+			try {
+				$params['source'] = $this->fb->fileToUpload($filename);
+			} catch (\Exception $e) {
+				$this->lastError = sprintf('Error adding file "%s": %s', $filename, $e->getMessage());
+				return false;
+			}
 		}
 		$command = sprintf('/%s/photos', $groupID);
 		$res = $this->request('POST', $command, $params);
