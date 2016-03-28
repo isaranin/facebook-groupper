@@ -14,7 +14,7 @@
  * copyright		(c) 2016, Saranin Co.
  *  
  *  
- * created by Ivan Saranin <ivan@saranin.com>, on 12.03.2016, at 15:06:59
+ * created by Ivan Saranin <ivan@saranin.com>, on 28.03.2016, at 12:31:11
  */
 
 /* 
@@ -23,7 +23,7 @@
 spl_autoload_register(function ($className) {
 	$namespaces = explode('\\', $className);
 
-	if ((count($namespaces) === 0) || (strtolower($namespaces[0]) !== 'groupper')) {
+	if ((count($namespaces) === 0) || (strtolower($namespaces[0]) !== 'sa')) {
 		return false;
 	}
 
