@@ -180,6 +180,11 @@ class CreatePost extends AbstractLogCommand{
 		if (is_string($res)) {
 			return $res;
 		}
+		if (isset($params['collection_id'])) {
+			$this->log->pput('Looking for groups collection %s...', $params['collection_id']);
+		} else {
+			$this->log->pput('Looking for group %s...', $params['group_id']);
+		}
 		$groups = $this->getGroups(
 				isset($params['collection_id'])?$params['collection_id']:$params['group_id'], 
 				isset($params['collection_id'])
@@ -187,22 +192,27 @@ class CreatePost extends AbstractLogCommand{
 		if (is_string($groups)) {
 			return $groups;
 		}
+		$this->log->pput('Finded %s groups', count($groups));
+		$this->log->pput('Looking for post %s...', $params['post_id']);
 		$post = $this->getPostDataById($params['post_id']);
 		if (is_string($post)) {
 			return $post;
 		}
-		
+		$this->log->put('Post finded!');
+		$this->log->put('Converting post...');
 		$post = $this->convertPostToFBFormat($post);
 		if (is_string($post)) {
 			return $post;
 		}
-		
+		$this->log->put('Post converted!');
 		foreach($groups as $groupID) {
+			$this->log->pput('Posting post to facebook group %s...', $groupID);
 			$res = call_user_func_array([$this->fb, $post['method']], array_merge([$groupID], $post['params']));
-		}
-		
-		if ($res === false) {
-			return $this->fb->lastError;
+			if ($res === false) {
+				$this->log->pput('Error: %s', $this->fb->lastError);
+			} else {
+				$this->log->put('Success!', $res);
+			}
 		}
 		
 		return true;
