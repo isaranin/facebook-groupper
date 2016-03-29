@@ -23,7 +23,7 @@ namespace Groupper\Commands\Command;
  * Module for CreatePost class
  */
 
-class CreatePost extends AbstractFbCommand{
+class CreatePost extends AbstractLogCommand{
 	
 	protected $command = 'createpost';
 	
