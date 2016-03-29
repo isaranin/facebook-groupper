@@ -23,7 +23,7 @@ namespace SA\Log;
  * Module for File class
  */
 
-class File {
+class File extends AbstractLog{
 	/**
 	 * Time template
 	 * 
@@ -88,90 +88,27 @@ class File {
 		return fopen($fileName, $openMode);
 	}
 
-	/**
-	 * Method for conevrtigns args to strings
-	 *
-	 * @param array $args arguments
-	 * @return string
-	 */
-	protected function convertArgs($args) {
-		$res = array();
-		foreach($args as $argument) {
-			switch (gettype($argument)) {
-				case 'array':
-					$str = array();
-					foreach($argument as $key=>$value) {
-						if (is_array($value)) {
-							$str[] = $key.'="'.  json_encode($value).'"';
-						} else {
-							$str[] = $key.'='.strval($value);
-						}
-					}
-					$res[] = implode(',', $str);
-					break;
-				case 'object':
-					$res[] = json_encode($argument);
-					break;
-				default:
-					$res[] = strval($argument);
-			}
-		}
-		return $res;
-	}
-	/**
-	 * Write string to log file
-	 *
-	 * @param ... any count of paramaters, they all whil be added in log using divider
-	 * @return boolean 
-	 */
-	public function put() {
+	
+	protected function writeString($logStr) {
 		if (empty($this->fileName)) {
 			return false;
-		}
-
-		if (func_num_args() == 0) {
-			return false;
-		}
-		$curDateTime = new \DateTime();
-		$curTime = time();
-		$fileName = strftime($this->fileName, $curTime);
+		}		
+		$fileName = strftime($this->fileName, time());
 		// open file
 		$fp = $this->openFile($fileName);
 		if ($fp === false) {
-			trigger_error('Can`t open file - '.$fileName, E_USER_WARNING);
-			return false;
+			return sprintf('Error can`t open file: %s', $fileName);
 		}
-		// convert args
-		$putArray = $this->convertArgs(func_get_args());
-		// add date and time
-		array_unshift(
-			$putArray,
-			$curDateTime->format($this->timeFormat),
-			$curDateTime->format($this->dateFormat)
-		);
-		$putStr = implode($this->delimiter, $putArray);
 		
-		$res = fwrite($fp, $putStr.PHP_EOL);
+		$res = fwrite($fp, $logStr.PHP_EOL);
 		fclose($fp);
 		if (!$res) {
-			trigger_error('Some proble with writing to log file - '.$this->fileName, E_USER_WARNING);
-			return false;
+			return sprintf('Error with writing to log file: %s', $fileName);
 		}
+		
 		return true;
 	}
-	
-	/**
-	 * Add string to log file using sprintf as fitrst parameter
-	 * @param @str sprintf template
-	 * @param ... @args arguments for template
-	 * @return string
-	 */
-	public function pput() {
-		$args = func_get_args();
-		$str = array_shift($args);
-		return $this->put(vsprintf($str, $args));
-	}
-	
+		
 	/**
 	 * Constructor
 	 *

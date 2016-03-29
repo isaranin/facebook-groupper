@@ -1,0 +1,102 @@
+<?
+
+/*
+ * facebook-groupper
+ * https://github.com/isaranin/facebook-groupper
+ *  
+ * Worker with facebook groups
+ *  
+ * repository		git@github.com:isaranin/facebook-groupper.git
+ *  
+ * author		Ivan Saranin
+ * company		Saranin Co.
+ * url			http://saranin.co
+ * copyright		(c) 2016, Saranin Co.
+ *  
+ *  
+ * created by Ivan Saranin <ivan@saranin.com>, on 29.03.2016, at 11:48:06
+ */
+
+namespace SA\Log;
+
+/*
+ * Module for AbstractLog class
+ */
+
+abstract class AbstractLog {
+	
+	/**
+	 * Method for conevrtigns args to strings
+	 *
+	 * @param array $args arguments
+	 * @return string
+	 */
+	protected function convertArgs($args) {
+		$res = array();
+		foreach($args as $argument) {
+			switch (gettype($argument)) {
+				case 'array':
+					$str = array();
+					foreach($argument as $key=>$value) {
+						if (is_array($value)) {
+							$str[] = $key.'="'.  json_encode($value).'"';
+						} else {
+							$str[] = $key.'='.strval($value);
+						}
+					}
+					$res[] = implode(',', $str);
+					break;
+				case 'object':
+					$res[] = json_encode($argument);
+					break;
+				default:
+					$res[] = strval($argument);
+			}
+		}
+		return $res;
+	}
+	
+	/**
+	 * Write string to log file
+	 *
+	 * @param ... any count of paramaters, they all whil be added in log using divider
+	 * @return boolean 
+	 */
+	public function put() {
+		if (func_num_args() == 0) {
+			return 'Error: not enought paramaeters';
+		}
+		$curDateTime = new \DateTime();
+		
+		// convert args
+		$putArray = $this->convertArgs(func_get_args());
+		// add date and time
+		array_unshift(
+			$putArray,
+			$curDateTime->format($this->timeFormat),
+			$curDateTime->format($this->dateFormat)
+		);
+		$putStr = implode($this->delimiter, $putArray);
+		
+		$res = $this->writeString($putStr);
+		
+		if (is_string($res)) {
+			return $res;
+		}
+		return true;
+	}
+	
+	/**
+	 * Add string to log file using sprintf as fitrst parameter
+	 * @param @str sprintf template
+	 * @param ... @args arguments for template
+	 * @return string
+	 */
+	public function pput() {
+		$args = func_get_args();
+		$str = array_shift($args);
+		return $this->put(vsprintf($str, $args));
+	}
+	
+	abstract protected function writeString($logStr);
+}
