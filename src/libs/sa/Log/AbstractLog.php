@@ -60,7 +60,7 @@ abstract class AbstractLog {
 	 * Write string to log file
 	 *
 	 * @param ... any count of paramaters, they all whil be added in log using divider
-	 * @return boolean 
+	 * @return boolean|string return text error if error, and true if ok
 	 */
 	public function put() {
 		if (func_num_args() == 0) {
@@ -90,7 +90,7 @@ abstract class AbstractLog {
 	 * Add string to log file using sprintf as fitrst parameter
 	 * @param @str sprintf template
 	 * @param ... @args arguments for template
-	 * @return string
+	 * @return boolean|string return text error if error, and true if ok
 	 */
 	public function pput() {
 		$args = func_get_args();
@@ -98,5 +98,31 @@ abstract class AbstractLog {
 		return $this->put(vsprintf($str, $args));
 	}
 	
+	/**
+	 * Mathod add separator to log file
+	 * Looks like $template($length/2) $text $template($length/2) 
+	 * Example
+	 * ---------------------- Sample text ----------------------
+	 * 
+	 * @param string $text text in the middle
+	 * @param type $length repeat string multiplier
+	 * @param string $template template for repeat string
+	 * @return boolean|string return text error if error, and true if ok
+	 */
+	public function addDelimiter($text = '', $length = 50, $template = '-') {					
+		$newLength = ceil(($length - strlen($text)) / 2);
+		if ($newLength < 0) {
+			$newLength = 0;
+		}
+		$repeater = str_repeat($template, $newLength);
+		return $this->pput('%s %s %s', $repeater, $text, $repeater);
+	}
+	
+	/**
+	 * Method should be overwrited,
+	 * 
+	 * @param strign $logStr string to add to log
+	 * @return boolean|string return text error or true 
+	 */
 	abstract protected function writeString($logStr);
 }
