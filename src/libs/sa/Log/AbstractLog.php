@@ -24,6 +24,26 @@ namespace SA\Log;
  */
 
 abstract class AbstractLog {
+	/**
+	 * Time template
+	 * 
+	 * @var string
+	 */
+	private $timeFormat = 'H:i:s:u';
+
+	/**
+	 * Date template
+	 * 
+	 * @var string
+	 */
+	private $dateFormat = 'd.m.Y';
+	
+	/**
+	 * Divider
+	 * 
+	 * @var string
+	 */
+	protected $delimiter = "\t";
 	
 	/**
 	 * Method for conevrtigns args to strings

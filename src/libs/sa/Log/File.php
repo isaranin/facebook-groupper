@@ -24,20 +24,7 @@ namespace SA\Log;
  */
 
 class File extends AbstractLog{
-	/**
-	 * Time template
-	 * 
-	 * @var string
-	 */
-	private $timeFormat = 'H:i:s:u';
-
-	/**
-	 * Date template
-	 * 
-	 * @var string
-	 */
-	private $dateFormat = 'd.m.Y';
-
+	
 	/**
 	 * Filename, you can use time format variables
 	 * @see http://php.net/manual/en/function.strftime.php
@@ -52,13 +39,6 @@ class File extends AbstractLog{
 	 * @var int
 	 */
 	private $maxSize = -1;
-
-	/**
-	 * Divider
-	 * 
-	 * @var string
-	 */
-	protected $delimiter = "\t";
 
 	/**
 	 * Open log filename
