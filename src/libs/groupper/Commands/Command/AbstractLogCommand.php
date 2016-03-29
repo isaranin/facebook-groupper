@@ -54,7 +54,7 @@ abstract class AbstractLogCommand extends AbstractFbCommand {
 	 * @param \SA\Log\AbstractLog $log log 
 	 */
 	public function init() {
-		parent::init();
+		call_user_func_array('parent::init', func_get_args());
 		if (func_num_args() > 2) {
 			$this->log = func_get_arg(2);		
 		}
