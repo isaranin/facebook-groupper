@@ -74,7 +74,7 @@ if (!is_array($tasks)) {
 	$log->put('Error gettingg tasks');
 	exit(1);
 }
-
+$log->pput('Finded %s tasks', count($tasks));
 $now = time();
 
 $commandManager = new \Groupper\Commands\Manager();
@@ -85,10 +85,10 @@ foreach($tasks as $task) {
 		$log->put('Task enabled');
 		$startTime = new \DateTime($task->start);
 		$log->put('Start time: ', $startTime->format('c'));
-		if ($startTime->getTimestamp() < $now) {			
+		if ($startTime->getTimestamp() < $now) {
+			$log->put('Last time execute: ', $task->lastexec);
 			if (!is_null($task->lastexec)) {
-				$lastExec = new \DateTime($task->lastexec);
-				$log->put('Last time execute: ', $lastExec->format('c'));
+				$lastExec = new \DateTime($task->lastexec);				
 				// add last time executed to interval (calculated in minutes)
 				// check it its not time to execute command, take next
 				$executeTime = $lastExec->getTimestamp()+$task->interval*60;
@@ -108,11 +108,12 @@ foreach($tasks as $task) {
 			$res = $command->execute($task->params);
 			if (is_string($res)) {
 				$log->put($res);
-			} else {
-				$log->put('Success!');
-			}
+				continue;
+			} 
+			$log->put('Finish execute command!');
 			$task->lastexec = date(\Groupper\FB\Connector::$MYSQL_DATETIME_FORMAT, $now);
 			$task->save();
 		}
 	}
 }
+$log->addDelimiter('Finish!');
