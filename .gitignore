@@ -5,3 +5,4 @@ Thumbs.db
 /nbproject
 /src/configs/*.private.php
 /src/tmp
+/src/logs

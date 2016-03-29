@@ -23,11 +23,20 @@
  * Main config file
  */
 
-$_CONFIG = (object) [
-	'main' => (object)[
-		'timezone' => 'UTC',
-		'dev' => true
-	],
-	'private' => include('my.private.php')
+$_CONFIG = new \stdClass();
+
+$_CONFIG->main = (object)[
+    'dev' => true,
+	'timezone' => 'UTC',
+	'baseDir' => dirname(__DIR__)
 ];
+
+$_CONFIG->log = (object)[
+	'main' => $_CONFIG->main->baseDir.'/logs/main/%Y/%m/%d.txt',
+	'cron' => $_CONFIG->main->baseDir.'/logs/cron/%Y/%m/%d.txt',
+	'feed' => $_CONFIG->main->baseDir.'/logs/feed/%Y/%m/%d.txt',
+	'maxSize' => -1
+];
+
+$_CONFIG->private = include('my.private.php');
 
