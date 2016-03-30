@@ -26,7 +26,7 @@ include '../bootstrap.php';
 include '../db.php';
 
 if (php_sapi_name() !== 'cli') {
-	//exit(0);
+	exit(0);
 }
 
 set_time_limit(0);
@@ -109,9 +109,8 @@ foreach($tasks as $task) {
 			$command->init($db, $fbGroup, $log);
 			$log->pput('Executing command %s ...',$task->command);
 			$res = $command->execute($task->params);
-			if (is_string($res)) {
-				$log->put($res);
-				continue;
+			if ($res === false) {
+				$log->put($command->lastError);
 			} 
 			$log->put('Finish execute command!');
 			$task->lastexec = date(\Groupper\FB\Connector::$MYSQL_DATETIME_FORMAT, $now);

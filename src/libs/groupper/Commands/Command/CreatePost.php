@@ -205,16 +205,20 @@ class CreatePost extends AbstractLogCommand{
 			return $post;
 		}
 		$this->log->put('Post converted!');
+		$errors = 0;
 		foreach($groups as $groupID) {
 			$this->log->pput('Posting post to facebook group %s...', $groupID);
 			$res = call_user_func_array([$this->fb, $post['method']], array_merge([$groupID], $post['params']));
 			if ($res === false) {
+				$errors++;
 				$this->log->pput('Error: %s', $this->fb->lastError);
 			} else {
 				$this->log->put('Success!', $res);
 			}
 		}
-		
+		if ($errors > 0) {
+			return sprintf('%s errors happens', $errors);
+		}
 		return true;
 	}
 }
