@@ -26,7 +26,7 @@ include '../bootstrap.php';
 include '../db.php';
 
 if (php_sapi_name() !== 'cli') {
-	exit(0);
+	//exit(0);
 }
 
 set_time_limit(0);
@@ -93,7 +93,10 @@ foreach($tasks as $task) {
 				// check it its not time to execute command, take next
 				$executeTime = $lastExec->getTimestamp()+$task->interval*60;
 				if ($executeTime > $now) {
-					$log->pput('Time not come, need to wait %s minutes', $executeTime-$now);
+					$log->pput(
+							'Time not come, need to wait %s', 
+							date('z \d\a\y\s H \h\o\u\r\s m \m\i\n\u\t\e\s', $executeTime-$now)
+					);
 					continue;
 				}
 			}
