@@ -24,26 +24,14 @@
 include '../bootstrap.php';
 include '../db.php';
 
-$fb = new \Groupper\FB\Group(
-	$_CONFIG->private->facebook->id,
-	$_CONFIG->private->facebook->secret,
-	$_CONFIG->private->facebook->version
-);
+var_dump(microtime(false));
 
-// find last facebook token
-$lastDBToken = \Groupper\Model\AccessToken::ObjectBuilder()->orderBy('time')->getOne();
+list($microseconds, $seconds) = explode(' ', microtime(false));
 
-if (!is_null($lastDBToken)) {
-	$lastToken = $lastDBToken->token;
-} else {
-	$lastToken = $_CONFIG->private->facebook->accessToken;
-}
+$microseconds = $seconds . substr($microseconds, 1, 7);
 
-$fb->connect($lastToken);
+var_dump($microseconds);
 
-$manager = new \Groupper\Commands\Manager();
+$curDateTime = \DateTime::createFromFormat('U.u', $microseconds);
 
-$a = $manager->getCommandByName('createpost');
-$a->init($db, $fb);
-var_dump($a->execute(['group_id' => '1700121430243230', 'post_id' => '1']));
-var_dump($a->lastError);
+var_dump($curDateTime->format('H:i:s:u'));
