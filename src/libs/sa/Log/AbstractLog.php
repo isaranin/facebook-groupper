@@ -29,7 +29,7 @@ abstract class AbstractLog {
 	 * 
 	 * @var string
 	 */
-	private $timeFormat = 'H:i:s:u';
+	private $timeFormat = 'H:i:s.u';
 
 	/**
 	 * Date template
@@ -86,7 +86,10 @@ abstract class AbstractLog {
 		if (func_num_args() == 0) {
 			return 'Error: not enought paramaeters';
 		}
-		$curDateTime = new \DateTime();
+		// create datetime with microseconds
+		list($microseconds, $seconds) = explode(' ', microtime(false));
+		$microseconds = $seconds . substr($microseconds, 1, 7);
+		$curDateTime = \DateTime::createFromFormat('U.u', $microseconds);
 		
 		// convert args
 		$putArray = $this->convertArgs(func_get_args());
